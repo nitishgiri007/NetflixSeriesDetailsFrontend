@@ -39,7 +39,10 @@ const MoodPage = () => {
     <>
       <div style={{ paddingTop: "25px" }}>
         {" "}
-        <Container maxWidth="md" style={{}}>
+        <Container
+          maxWidth="md"
+          style={{ display: "flex", flexDirection: "column", gap: "30px" }}
+        >
           <AppBar
             position="static"
             className={classes.appBarContainer}
@@ -72,7 +75,10 @@ const MoodPage = () => {
             }}
           >
             <div>
-              <Card className={classes.appBarContainer} style={{borderRadius:"15px"}}>
+              <Card
+                className={classes.appBarContainer}
+                style={{ borderRadius: "15px" }}
+              >
                 <CardMedia
                   component="img"
                   height="300"
@@ -84,22 +90,48 @@ const MoodPage = () => {
                     display: "flex",
                     flexDirection: "column",
                     gap: "15px",
+                    backgroundColor: "black",
+                    color: "white",
                   }}
                 >
-                  <Typography variant="h5" component="div" style={{}} >
+                  <Typography variant="h5" component="div" style={{}}>
                     The Lion King
                   </Typography>
-                  <Box display="flex" flexWrap="wrap" my={2}>
-                    <Chip label="Adventure" variant="outlined" size="small" />
-                    <Chip label="Family" variant="outlined" size="small" />
-                    <Chip label="Drama" variant="outlined" size="small" />
-                    <Chip label="Animation" variant="outlined" size="small" />
-                    <Chip label="Musical" variant="outlined" size="small" />
+                  <Box display="flex" flexWrap="wrap" my={2} >
+                    <Chip
+                      label="Adventure"
+                      variant="outlined"
+                      size="small"
+                      style={{
+                        color: "white",
+                        borderColor: "white",
+                      }}
+                    />
+
+                    <Chip
+                      label="Drama"
+                      variant="outlined"
+                      size="small"
+                      style={{
+                        color: "white",
+                        borderColor: "white",
+                      }}
+                    />
+                    <Chip
+                      label="Animation"
+                      variant="outlined"
+                      size="small"
+                      style={{
+                        color: "white",
+                        borderColor: "white",
+                      }}
+                    />
                   </Box>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     component="p"
+                    style={{ color: "white" }}
                   >
                     1994 · 1h 28min · &#9733; 8.5/10
                   </Typography>

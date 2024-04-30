@@ -5,7 +5,7 @@ function App() {
   return (
     <div style={{ backgroundColor: "#20202c", minHeight: "100vh" }}>
       <MoodPage />
-      <LandingPage />
+      {/* <LandingPage /> */}
     </div>
   );
 }
