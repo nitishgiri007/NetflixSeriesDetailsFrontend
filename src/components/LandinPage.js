@@ -11,6 +11,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 
 import MovieIcon from "@material-ui/icons/Movie";
+import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   appBarContainer: {
     maxWidth: "600px",
@@ -38,25 +39,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const moods = [
-  "CHEERFUL",
-  "REFLECTIVE",
-  "GLOOMY",
-  "HUMOROUS",
-  "IDYLLIC",
-  "CHILL",
-  "ROMANTIC",
-  "MELANCHOLY",
-  "WEIRD",
-  "HORNY",
-  "SLEEPY",
-  "ANGRY",
-  "FEARFUL",
-  "LONELY",
-  "TENSE",
-  "THOUGHTFUL",
-  "THRILL-SEEKING",
-  "PLAYFUL",
+  "Thrill-Seeking",
+  "Playful",
+  "Humorous",
+  "Gritty",
+  "Thoughtful",
+  "Reflective",
+  "Cheerful",
+  "Idyllic",
 ];
+const moodToGenreMap = {
+  "Thrill-Seeking": "action",
+  Advanture: "action",
+  Playful: "animation",
+  Humorous: "comedy",
+  Gritty: "crime",
+  Thoughtful: "documentry",
+  Reflective: "drama",
+  Cheerful: "family",
+  Idyllic: "western",
+};
+const handleOnClick = async (mood) => {
+  try {
+    const genre = moodToGenreMap[mood];
+    console.log(genre);
+    const apiData = await axios.get(
+      `http://localhost:8000/netflix?genre=${genre}`
+    );
+    console.log(apiData);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const LandingPage = () => {
   const classes = useStyles();
@@ -106,7 +120,7 @@ const LandingPage = () => {
                   color: "white",
                 }}
               >
-                Discover top-rated movies based on your mood
+                Explore the finest films tailored to match your current vibe.
               </Typography>
               <Typography
                 variant="h6"
@@ -125,6 +139,7 @@ const LandingPage = () => {
                       size="medium"
                       color="primary"
                       className={classes.button}
+                      onClick={() => handleOnClick(mood)}
                       style={{
                         backgroundColor: "#e50914",
                         boxShadow:
