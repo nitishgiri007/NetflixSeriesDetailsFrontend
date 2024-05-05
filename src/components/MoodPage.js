@@ -6,6 +6,10 @@ import { Card, CardMedia, CardContent, Chip, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import MovieIcon from "@material-ui/icons/Movie";
+import { useEffect } from "react";
+import { useLocation } from 'react-router-dom';
+import axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
   appBarContainer: {
     maxWidth: "600px",
@@ -34,7 +38,22 @@ const useStyles = makeStyles((theme) => ({
 
 const MoodPage = () => {
   const classes = useStyles();
+  const location = useLocation();
 
+  useEffect(() => {
+    const genre = location.state?.genre;
+    if (genre) {
+      console.log("mooooodddd page", genre);
+      axios
+        .get(`http://localhost:8000/netflix?genre=${genre}`)
+        .then((response) => {
+          console.log("Resolved Promise:", response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
   return (
     <>
       <div style={{ paddingTop: "25px" }}>
