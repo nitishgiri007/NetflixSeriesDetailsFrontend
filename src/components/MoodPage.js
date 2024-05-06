@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Container, Typography, AppBar, Toolbar } from "@material-ui/core";
+import {
+  Container,
+  Typography,
+  AppBar,
+  Toolbar,
+  Button,
+  Grid
+} from "@material-ui/core";
 import { Card, CardMedia, CardContent, Chip, Box } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
 
 import MovieIcon from "@material-ui/icons/Movie";
 import { useEffect } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,25 +46,31 @@ const useStyles = makeStyles((theme) => ({
 const MoodPage = () => {
   const classes = useStyles();
   const location = useLocation();
+  const [seriesData, setSeriesData] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0); 
 
   useEffect(() => {
     const genre = location.state?.genre;
     if (genre) {
-      console.log("mooooodddd page", genre);
       axios
         .get(`http://localhost:8000/netflix?genre=${genre}`)
         .then((response) => {
-          console.log("Resolved Promise:", response.data);
+          console.log(response.data);
+          setSeriesData(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
     }
   }, []);
+  const handleNextClick = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % seriesData.length);
+  };
   return (
     <>
       <div style={{ paddingTop: "25px" }}>
         {" "}
+
         <Container
           maxWidth="md"
           style={{ display: "flex", flexDirection: "column", gap: "30px" }}
@@ -93,6 +106,7 @@ const MoodPage = () => {
               gap: "20px",
             }}
           >
+             {seriesData.map((series, index) => (
             <div>
               <Card
                 className={classes.appBarContainer}
@@ -102,7 +116,7 @@ const MoodPage = () => {
                   component="img"
                   height="300"
                   image="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/13638D7D100FE3985B157CD2E81A51571C8A47C181F123510F19453B55654CD4/scale?width=1200&aspectRatio=1.78&format=webp"
-                  alt="The Lion King"
+                  alt={series.original_name}
                 />
                 <CardContent
                   style={{
@@ -114,9 +128,9 @@ const MoodPage = () => {
                   }}
                 >
                   <Typography variant="h5" component="div" style={{}}>
-                    The Lion King
+                  {series.original_name}
                   </Typography>
-                  <Box display="flex" flexWrap="wrap" my={2} >
+                  <Box display="flex" flexWrap="wrap" my={2}>
                     <Chip
                       label="Adventure"
                       variant="outlined"
@@ -146,6 +160,36 @@ const MoodPage = () => {
                       }}
                     />
                   </Box>
+                  <Box display="flex" flexWrap="wrap" my={2}>
+                    <Chip
+                      label="Season 1"
+                      variant="outlined"
+                      size="small"
+                      style={{
+                        color: "white",
+                        borderColor: "red",
+                      }}
+                    />
+
+                    <Chip
+                      label="Season 2"
+                      variant="outlined"
+                      size="small"
+                      style={{
+                        color: "white",
+                        borderColor: "red",
+                      }}
+                    />
+                    <Chip
+                      label="Season 3"
+                      variant="outlined"
+                      size="small"
+                      style={{
+                        color: "white",
+                        borderColor: "red",
+                      }}
+                    />
+                  </Box>
                   <Typography
                     variant="body2"
                     color="textSecondary"
@@ -155,12 +199,40 @@ const MoodPage = () => {
                     1994 · 1h 28min · &#9733; 8.5/10
                   </Typography>
                   <Typography variant="body1" component="p">
-                    Lion prince Simba and his father are targeted by his bitter
-                    uncle, who wants to ascend the throne himself.
+                   {series.overview}
                   </Typography>
+                  <Grid container spacing={2} justifyContent="space-between">
+                    <Button
+                      variant="contained"
+                      size="medium"
+                      color="primary"
+                      className={classes.button}
+                      style={{
+                        backgroundColor: "#e50914",
+                        boxShadow:
+                          "0px 2px 4px -1px rgb(37 216 136), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
+                      }}
+                    >
+                      Prev
+                    </Button>
+                    <Button
+                      variant="contained"
+                      size="medium"
+                      color="primary"
+                      className={classes.button}
+                      style={{
+                        backgroundColor: "#e50914",
+                        boxShadow:
+                          "0px 2px 4px -1px rgb(37 216 136), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
+                      }}
+                    >
+                      Next
+                    </Button>
+                  </Grid>
                 </CardContent>
               </Card>
             </div>
+             ))}
             <div style={{ marginTop: "30px" }}>
               {" "}
               <Typography

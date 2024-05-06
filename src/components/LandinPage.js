@@ -60,18 +60,7 @@ const moodToGenreMap = {
   Cheerful: "family",
   Idyllic: "western",
 };
-// const handleOnClick = async (mood) => {
-//   try {
-//     const genre = moodToGenreMap[mood];
-//     console.log(genre);
-//     const apiData = await axios.get(
-//       `http://localhost:8000/netflix?genre=${genre}`
-//     );
-//     console.log(apiData);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+
 
 const LandingPage = () => {
   const classes = useStyles();
@@ -80,9 +69,7 @@ const LandingPage = () => {
   const handleOnClick = async (mood) => {
     try {
       const genre = moodToGenreMap[mood];
-      // const apiData = await axios.get(`http://localhost:8000/netflix?genre=${genre}`);
-      // console.log(apiData);
-      navigate(`/movies/${genre}`, { state: { genre: genre } });
+      navigate(`/movies/${mood}`, { state: { genre: genre } });
     } catch (error) {
       console.log(error);
     }
