@@ -170,7 +170,15 @@ const MoodPage = () => {
                       component="p"
                       style={{ color: "white" }}
                     >
-                      1994 · 1h 28min · &#9733; 8.5/10
+                      First Air Date: {seriesData[currentIndex].first_air_date}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                      style={{ color: "white" }}
+                    >
+                      IMDb Rating: {seriesData[currentIndex].imdbRating}
                     </Typography>
                     <Typography variant="body1" component="p">
                       {seriesData[currentIndex].overview}
