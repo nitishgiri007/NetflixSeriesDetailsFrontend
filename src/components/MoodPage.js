@@ -9,6 +9,8 @@ import {
   Grid,
 } from "@material-ui/core";
 import { Card, CardMedia, CardContent, Chip, Box } from "@material-ui/core";
+import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import YouTube from "react-youtube";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -68,6 +70,9 @@ const MoodPage = () => {
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % seriesData.length);
   };
+  const handlePrevClick = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1) % seriesData.length);
+  };
 
   return (
     <>
@@ -103,9 +108,7 @@ const MoodPage = () => {
             style={{
               display: "flex",
               flexDirection: "column",
-              marginTop: "10px",
-              alignItems: "center",
-              gap: "20px",
+              alignItems: "center",           
             }}
           >
             {seriesData.length > 0 && (
@@ -114,11 +117,17 @@ const MoodPage = () => {
                   className={classes.appBarContainer}
                   style={{ borderRadius: "15px" }}
                 >
-                  <CardMedia
-                    component="img"
-                    height="300"
-                    image="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/13638D7D100FE3985B157CD2E81A51571C8A47C181F123510F19453B55654CD4/scale?width=1200&aspectRatio=1.78&format=webp"
-                    alt={seriesData[currentIndex].original_name}
+                  
+                  <YouTube
+                    videoId = {seriesData[currentIndex].youtube_key}
+
+                    opts={{
+                      width: "100%",
+                      height: "300px",                    
+                      playerVars: {
+                        autoplay: 0,
+                      },
+                    }}
                   />
                   <CardContent
                     style={{
@@ -129,7 +138,11 @@ const MoodPage = () => {
                       color: "white",
                     }}
                   >
-                    <Typography variant="h5" component="div" style={{}}>
+                    <Typography
+                      variant="h5"
+                      component="div"
+                      style={{ color: "white" }}
+                    >
                       {seriesData[currentIndex].original_name}
                     </Typography>
                     <Box display="flex" flexWrap="wrap" my={2}>
@@ -164,22 +177,44 @@ const MoodPage = () => {
                         />
                       ))}
                     </Box>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                      style={{ color: "white" }}
+                    <Box
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
                     >
-                      First Air Date: {seriesData[currentIndex].first_air_date}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                      style={{ color: "white" }}
-                    >
-                      IMDb Rating: {seriesData[currentIndex].imdbRating}
-                    </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                        style={{ color: "white" }}
+                      >
+                        {seriesData[currentIndex].first_air_date}
+                      </Typography>{" "}
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                        style={{ color: "white" }}
+                      >
+                        .
+                      </Typography>{" "}
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ fontSize: "18px" }}
+                        style={{ color: "yellow" }}
+                      >
+                        ★
+                      </Typography>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ paddingLeft: "5px" }}
+                      >
+                        {seriesData[currentIndex].imdbRating}
+                      </Typography>
+                    </Box>
+
                     <Typography variant="body1" component="p">
                       {seriesData[currentIndex].overview}
                     </Typography>
@@ -194,6 +229,7 @@ const MoodPage = () => {
                           boxShadow:
                             "0px 2px 4px -1px rgb(37 216 136), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
                         }}
+                        onClick={handlePrevClick}
                       >
                         Prev
                       </Button>
