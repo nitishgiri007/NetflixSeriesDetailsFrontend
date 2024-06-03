@@ -50,12 +50,10 @@ const MoodPage = () => {
       axios
         .get(`https://netflix-series-details-backend.vercel.app/netflix?genre=${genre}`)
         .then((response) => {
-          console.log(response.data);
           setSeriesData(response.data);
           setIsLoading(false);
         })
         .catch((error) => {
-          console.log(error);
           setIsLoading(false);
         });
     }
@@ -79,7 +77,6 @@ const MoodPage = () => {
       </div>
     );
   }
-  console.log("lskjflskdjf", seriesData);
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % seriesData.length);
   };

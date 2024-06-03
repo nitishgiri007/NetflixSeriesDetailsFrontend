@@ -2,9 +2,9 @@ import React from "react";
 
 import { Typography, AppBar, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useParams } from "react-router-dom"; 
 import MovieIcon from "@material-ui/icons/Movie";
 
+import { useLocation, useNavigate } from "react-router-dom"; // Import useLocation and useNavigate
 
 const useStyles = makeStyles((theme) => ({
   appBarContainer: {
@@ -34,10 +34,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
-  const { genere } = useParams(); // Extract the genere parameter  
-  const showChangeVibeButton = Boolean(genere); 
-  
-    console.log(showChangeVibeButton)
+  const location = useLocation(); // Get the current location
+  const navigate = useNavigate();
+
+  const handleChangeVibe = () => {
+    navigate("/"); // Navigate back to the landing page
+  };
+
+  const isMoodPage = location.pathname.startsWith("/movies/");
+
   return (
     <AppBar
       position="static"
@@ -59,7 +64,8 @@ const Header = () => {
           Click4Netflik
         </Typography>
         <div className={classes.grow} />
-        {showChangeVibeButton && ( 
+
+        {isMoodPage && ( // Only render the button if we're on the MoodPage
           <Button
             variant="contained"
             size="medium"
@@ -70,6 +76,7 @@ const Header = () => {
               boxShadow:
                 "0px 2px 4px -1px rgb(37 216 136), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
             }}
+            onClick={handleChangeVibe} // Add onClick handler
           >
             Change Vibe
           </Button>

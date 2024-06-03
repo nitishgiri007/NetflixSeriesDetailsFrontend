@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const moods = [
-  "Thrill-Seeking",
+  "Thrill",
   "Playful",
   "Humorous",
   "Gritty",
@@ -47,7 +47,7 @@ const moods = [
   "Idyllic",
 ];
 const moodToGenreMap = {
-  "Thrill-Seeking": "action",
+  "Thrill": "action",
   Advanture: "action",
   Playful: "animation",
   Humorous: "comedy",
