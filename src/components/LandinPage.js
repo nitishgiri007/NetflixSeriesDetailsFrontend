@@ -108,7 +108,7 @@ const LandingPage = () => {
             <div className={classes.groot}>
               <Grid container spacing={2}>
                 {moods.map((mood, index) => (
-                  <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={index}>
+                  <Grid item xs={6} sm={6} md={4} lg={3} xl={2} key={index}>
                     <Button
                       variant="contained"
                       size="medium"
