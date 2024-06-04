@@ -4,7 +4,7 @@ import { Typography, AppBar, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import MovieIcon from "@material-ui/icons/Movie";
 
-import { useLocation, useNavigate } from "react-router-dom"; // Import useLocation and useNavigate
+import { useLocation, useNavigate } from "react-router-dom"; 
 
 const useStyles = makeStyles((theme) => ({
   appBarContainer: {
@@ -34,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
-  const location = useLocation(); // Get the current location
+  const location = useLocation(); 
   const navigate = useNavigate();
 
   const handleChangeVibe = () => {
-    navigate("/"); // Navigate back to the landing page
+    navigate("/");
   };
 
   const isMoodPage = location.pathname.startsWith("/movies/");
@@ -65,7 +65,7 @@ const Header = () => {
         </Typography>
         <div className={classes.grow} />
 
-        {isMoodPage && ( // Only render the button if we're on the MoodPage
+        {isMoodPage && ( 
           <Button
             variant="contained"
             size="medium"
@@ -76,7 +76,7 @@ const Header = () => {
               boxShadow:
                 "0px 2px 4px -1px rgb(37 216 136), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
             }}
-            onClick={handleChangeVibe} // Add onClick handler
+            onClick={handleChangeVibe} 
           >
             Change Vibe
           </Button>

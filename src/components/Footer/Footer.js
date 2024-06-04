@@ -13,7 +13,7 @@ const Footer = () => {
           color: "white",
         }}
       >
-        Made with 🍺 by Nitish
+        Made with 🍹 by Nitish
       </Typography>
     </div>
   );
