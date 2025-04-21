@@ -8,7 +8,7 @@ import "./App.css"
 function App() {
   return (
     <Router>
-      <div style={{ backgroundColor: '#20202c', minHeight: '100vh' }}>
+      <div style={{  backgroundColor: "#1a1a25", minHeight: '100vh' }}>
       <div style={{ paddingTop: "25px" }}>
         <Header />
         <Routes>
