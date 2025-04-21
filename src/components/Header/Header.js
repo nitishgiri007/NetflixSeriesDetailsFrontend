@@ -1,88 +1,147 @@
 import React from "react";
-
 import { Typography, AppBar, Toolbar, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import MovieIcon from "@material-ui/icons/Movie";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { useLocation, useNavigate } from "react-router-dom"; 
+// Popcorn emoji component with click handler
+const EmojiIcon = ({ onClick }) => (
+  <span 
+    style={{ 
+      fontSize: "1.5rem", 
+      color: "white", 
+      cursor: "pointer" // Add cursor pointer to indicate it's clickable
+    }}
+    onClick={onClick}
+    role="button"
+    aria-label="Go to home page"
+  >
+    🍹
+  </span>
+);
 
 const useStyles = makeStyles((theme) => ({
   appBarContainer: {
-    maxWidth: "600px",
-    margin: "0 auto",
-  },
-  root: {
     width: "100%",
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#1a1a25",
+    display: "flex",
+    justifyContent: "center"
   },
-  groot: {
-    flexGrow: 1,
-    padding: theme.spacing(2),
-  },
-  button: {
-    margin: theme.spacing(1),
-  },
-  grow: {
-    flexGrow: 1,
+  appBar: {
+    backgroundColor: "#4756b3",
+    boxShadow: "none",
+    padding: 0,
+    borderRadius: "30px",
+    margin: "10px auto",
+    maxWidth: "600px", // Fixed width
+    height: "60px",
+    overflow: "hidden" // Prevent content from overflowing
   },
   toolbar: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    alignItems: "center",
+    minHeight: "60px", 
+    padding: "0 20px",
+    width: "100%",
   },
+  title: {
+    fontWeight: "600",
+    fontSize: "1.2rem",
+    fontFamily: "Arial, Sans-Serif",
+    color: "white",
+  },
+  iconContainer: {
+    display: "flex",
+    alignItems: "center",
+    width: "50px",
+    minWidth: "40px",
+  },
+  titleContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
+  buttonContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
+    width: "120px",
+    paddingRight: "35px", // Ensure button doesn't touch the edge
+  },
+  button: {
+    backgroundColor: "#1d1d2b",
+    color: "white",
+    padding: "6px 12px", // Slightly smaller padding
+    borderRadius: "6px",
+    textTransform: "none",
+    fontWeight: "500",
+    fontSize: "0.85rem", // Slightly smaller font
+    "&:hover": {
+      backgroundColor: "#2c2c3a",
+    },
+    maxWidth: "110px", // Ensure button doesn't exceed container
+    whiteSpace: "nowrap"
+  },
+  emptySpace: {
+    width: "120px",
+  }
 }));
 
 const Header = () => {
   const classes = useStyles();
-  const location = useLocation(); 
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleChangeVibe = () => {
+    navigate("/");
+  };
+  
+  // Function to handle emoji click - navigate to home page
+  const handleEmojiClick = () => {
     navigate("/");
   };
 
   const isMoodPage = location.pathname.startsWith("/movies/");
 
   return (
-    <AppBar
-      position="static"
-      className={classes.appBarContainer}
-      style={{
-        borderRadius: "15px 65px",
-        backgroundColor: "#e50914",
-        boxShadow:
-          "0px 2px 4px -1px rgb(37 216 136), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
-      }}
-    >
-      <Toolbar className={classes.toolbar}>
-        <MovieIcon style={{ marginRight: "8px" }} />
-        <div className={classes.grow} />
-        <Typography
-          variant="h6"
-          style={{ fontWeight: "bold", fontFamily: "Sans-Serif" }}
-        >
-          Click4Netflik
-        </Typography>
-        <div className={classes.grow} />
-
-        {isMoodPage && ( 
-          <Button
-            variant="contained"
-            size="medium"
-            color="primary"
-            className={classes.button}
-            style={{
-              backgroundColor: "#20202a",
-              boxShadow:
-                "0px 2px 4px -1px rgb(37 216 136), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12)",
-            }}
-            onClick={handleChangeVibe} 
-          >
-            Change Vibe
-          </Button>
-        )}
-      </Toolbar>
-    </AppBar>
+    <div className={classes.appBarContainer}>
+      <AppBar position="static" className={classes.appBar} elevation={0}>
+        <Toolbar className={classes.toolbar}>
+          {/* Left side - Icon */}
+          <div className={classes.iconContainer}>
+            <EmojiIcon onClick={handleEmojiClick} />
+          </div>
+         
+          {/* Middle - Title */}
+          <div className={classes.titleContainer}>
+            <Typography 
+              className={classes.title}
+              onClick={handleEmojiClick} // Make title clickable too (optional)
+              style={{ cursor: "pointer" }} // Add cursor pointer to indicate it's clickable
+            >
+              Click4Netflik
+            </Typography>
+          </div>
+         
+          {/* Right side - Button or empty space */}
+          <div className={classes.buttonContainer}>
+            {isMoodPage ? (
+              <Button
+                variant="contained"
+                size="small"
+                className={classes.button}
+                onClick={handleChangeVibe}
+                disableElevation
+              >
+                Change Vibe
+              </Button>
+            ) : (
+              <div className={classes.emptySpace} />
+            )}
+          </div>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 };
 
